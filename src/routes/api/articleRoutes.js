@@ -9,17 +9,52 @@ route.post('/', async (req, res, next) => {
     console.log("body = ", req.body);
     console.log("image = ", req.file);
 
-    try {
-        const result = await new ArticleControllers().createArticle(req, res, next);
-        console.log("in articleRoutes = ", result);
+    const result = await new ArticleControllers().createArticle(req, res, next);
 
-        if (!result.errors) {
-            res.status(200).json({ status: 200, message: "this will return all articles", data: result })
-        } else {
-            res.status(404).json({ status: 404, message: result, data: '' })
-        }
-    } catch (error) {
-        res.status(404).json({ status: 404, message: error, data: '' })
+    if (result.image) {
+        res.status(200).json({ status: 200, message: "this will save an article", data: result })
+    } else {
+        res.status(404).json({ status: 404, message: result, data: '' })
+    }
+})
+
+route.get('/', async (req, res, next) => {
+    const result = await new ArticleControllers().getAllArticles(req, res, next);
+
+    if (result[0] && result[0]._id) {
+        res.status(200).json({ status: 200, message: "this will return all articles", data: result })
+    } else {
+        res.status(404).json({ status: 404, message: result, data: '' })
+    }
+})
+
+route.get('/:id', async (req, res, next) => {
+    const result = await new ArticleControllers().getArticle(req, res, next);
+
+    if (result._id) {
+        res.status(200).json({ status: 200, message: "this will return one article", data: result })
+    } else {
+        res.status(404).json({ status: 404, message: result, data: '' })
+    }
+})
+
+route.patch('/:id', async (req, res, next) => {
+    const result = await new ArticleControllers().updateArticle(req, res, next);
+
+    if (result._id) {
+        res.status(200).json({ status: 200, message: "this will update one article", data: result })
+    } else {
+        res.status(404).json({ status: 404, message: result, data: '' })
+    }
+})
+
+route.delete('/:id', async (req, res, next) => {
+    const result = await new ArticleControllers().deleteArticle(req, res, next);
+
+    if (result === true) {
+        res.status(200).json({ status: 200, message: "this will delete one article", data: `deleted ${req.params.id}  success fully ` })
+    } else {
+        res.status(404).json({ status: 404, message: result, data: '' })
     }
 })
 

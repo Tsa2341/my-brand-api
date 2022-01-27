@@ -7,10 +7,8 @@ export default class ArticleServices {
         try {
             const article = new ArticleModel(data);
             await article.save();
-            console.log("in articleServices = ",article);
             return article;
         } catch (error) {
-            console.log(error)
             return error;
         }
     }
@@ -31,13 +29,13 @@ export default class ArticleServices {
             return error;
         }
     }
-    async updateArticle(id, data) { 
+    async updateArticle(id, data, image) { 
         try {
             const article = await ArticleModel.findOne({ _id: id });
     
             article.title = data.title || article.title;
             article.description = data.description || article.description;
-            article.image = data.image || article.image;
+            article.image = image || article.image;
     
             await article.save();
             return article;

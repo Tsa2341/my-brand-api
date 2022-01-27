@@ -4,7 +4,7 @@ import cloudinary from "cloudinary"
 import { CloudinaryStorage } from "multer-storage-cloudinary"
 import welcomeRoutes from "./api/welcomeRoutes"
 import articleRoutes from "./api/articleRoutes"
-import queriesRoutes from "./api/queriesRoutes"
+import queryRoutes from "./api/queryRoutes"
 import userRoutes from "./api/userRoutes"
 
 // const cloudinary = require('cloudinary').v2;
@@ -53,7 +53,7 @@ const upload = multer({
 
 routes.use('/', welcomeRoutes)
 routes.use('/articles',upload.single("image"), articleRoutes)
-routes.use('/queries', queriesRoutes)
+routes.use('/queries', queryRoutes)
 routes.use('/user', userRoutes)
 
 export default routes

@@ -26,12 +26,23 @@ export default class ArticleControllers {
             date: date,
         })
 
-        console.log("in article controller = ",result)
         return result;
     }
     
-    getAllArticles(req, res, next) { }
-    getArticle(req, res, next) { }
-    updateArticle(req, res, next) { }
-    deleteArticle(req, res, next) { }
+    async getAllArticles(req, res, next) { 
+        const results = await this.services.getAllArticles();
+        return results;
+    }
+    async getArticle(req, res, next) { 
+        const result = await this.services.getArticle(req.params.id);
+        return result;
+    }
+    async updateArticle(req, res, next) { 
+        const result = await this.services.updateArticle(req.params.id, req.body, req.file.path);
+        return result;
+    }
+    async deleteArticle(req, res, next) { 
+        const result = await this.services.deleteArticle(req.params.id);
+        return result;
+    }
 }
