@@ -1,8 +1,56 @@
+import ArticleModel from '../models/articleModel.js'
+
 // import the model you need to access
-export class ArticleServices {
-    createArticle(data) { }
-    getAllArticles() { }
-    getArticle(id) { }
-    updateArticle(id) { }
-    deleteArticle(id) { }
+export default class ArticleServices {
+
+    async createArticle(data) {
+        try {
+            const article = new ArticleModel(data);
+            await article.save();
+            console.log("in articleServices = ",article);
+            return article;
+        } catch (error) {
+            console.log(error)
+            return error;
+        }
+    }
+
+    async getAllArticles() {
+        try {
+            const articles = await ArticleModel.find();
+            return articles;
+        } catch (error) {
+            return error;
+        }
+    }
+    async getArticle(id) {
+        try {
+            const article = await ArticleModel.findOne({ _id: id });
+            return article;
+        } catch (error) {
+            return error;
+        }
+    }
+    async updateArticle(id, data) { 
+        try {
+            const article = await ArticleModel.findOne({ _id: id });
+    
+            article.title = data.title || article.title;
+            article.description = data.description || article.description;
+            article.image = data.image || article.image;
+    
+            await article.save();
+            return article;
+        } catch (error) {
+            return error;
+        }
+    }
+    async deleteArticle(id) {
+        try {
+            await ArticleModel.deleteOne({ _id: id })
+            return true;
+        } catch (error) {
+            return error;
+        }
+    }
 }

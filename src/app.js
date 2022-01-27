@@ -16,10 +16,11 @@ const server = async () => {
         } else if (mode === "production") {
             await mongoose.connect(process.env.PRODUCTION_DB, { useNewUrlParser: true })
         }
+        app.use(express.urlencoded({ extended: true }))
         app.use(express.json())
         app.use("/api/v1/", routes)
         app.listen(port, () => {
-            console.log(`The server is running on port ${port}`)
+            console.log(`The server is in ${mode} and running on port ${port}`)
         })
     } catch (error) {
         console.log(error)

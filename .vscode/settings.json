@@ -1,0 +1,6 @@
+{
+    "path-intellisense.autoTriggerNextSuggestion": true,
+    "path-intellisense.extensionOnImport": true,
+    "autoimport.showNotifications": true,
+    "autoimport.filesToScan": "**/*.{ts,tsx,js,jsx}"
+}
