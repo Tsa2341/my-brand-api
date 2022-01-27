@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
 
 const schema = mongoose.Schema({
-    title: { type: String, required: true },
     description: { type: String, required: true },
-    date: Date,
-    location: String
+    location: String,
+    date: Date
 })
 
 export default mongoose.model('QueryModel', schema);

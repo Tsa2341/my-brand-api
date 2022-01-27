@@ -5,13 +5,9 @@ const route = express.Router()
 
 route.post('/', async (req, res, next) => {
 
-    console.log("error = " ,req.error)
-    console.log("body = ", req.body);
-    console.log("image = ", req.file);
-
     const result = await new ArticleControllers().createArticle(req, res, next);
 
-    if (result.image) {
+    if (result && result._id) {
         res.status(200).json({ status: 200, message: "this will save an article", data: result })
     } else {
         res.status(404).json({ status: 404, message: result, data: '' })
@@ -21,7 +17,7 @@ route.post('/', async (req, res, next) => {
 route.get('/', async (req, res, next) => {
     const result = await new ArticleControllers().getAllArticles(req, res, next);
 
-    if (result[0] && result[0]._id) {
+    if (result && result[0] && result[0]._id) {
         res.status(200).json({ status: 200, message: "this will return all articles", data: result })
     } else {
         res.status(404).json({ status: 404, message: result, data: '' })
@@ -31,7 +27,7 @@ route.get('/', async (req, res, next) => {
 route.get('/:id', async (req, res, next) => {
     const result = await new ArticleControllers().getArticle(req, res, next);
 
-    if (result._id) {
+    if (result && result._id) {
         res.status(200).json({ status: 200, message: "this will return one article", data: result })
     } else {
         res.status(404).json({ status: 404, message: result, data: '' })
@@ -41,7 +37,7 @@ route.get('/:id', async (req, res, next) => {
 route.patch('/:id', async (req, res, next) => {
     const result = await new ArticleControllers().updateArticle(req, res, next);
 
-    if (result._id) {
+    if (result && result._id) {
         res.status(200).json({ status: 200, message: "this will update one article", data: result })
     } else {
         res.status(404).json({ status: 404, message: result, data: '' })
@@ -51,8 +47,8 @@ route.patch('/:id', async (req, res, next) => {
 route.delete('/:id', async (req, res, next) => {
     const result = await new ArticleControllers().deleteArticle(req, res, next);
 
-    if (result === true) {
-        res.status(200).json({ status: 200, message: "this will delete one article", data: `deleted ${req.params.id}  success fully ` })
+    if (result && result === true) {
+        res.status(200).json({ status: 200, message: "this will delete one article", data: `deleted ${req.params.id}  successfully ` })
     } else {
         res.status(404).json({ status: 404, message: result, data: '' })
     }

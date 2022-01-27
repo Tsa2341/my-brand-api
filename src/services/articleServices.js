@@ -24,6 +24,9 @@ export default class ArticleServices {
     async getArticle(id) {
         try {
             const article = await ArticleModel.findOne({ _id: id });
+            if (article === null) {
+                return `Article ${id} can't be found`
+            }
             return article;
         } catch (error) {
             return error;
