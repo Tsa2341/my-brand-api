@@ -7,18 +7,8 @@ import articleRoutes from "./api/articleRoutes"
 import queryRoutes from "./api/queryRoutes"
 import userRoutes from "./api/userRoutes"
 
-// const cloudinary = require('cloudinary').v2;
 const routes = express.Router()
-// const cloudinary = v2.cloudinary;
 
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'public/images/');
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, new Date().toISOString().replaceAll(':','-') + '-' + file.originalname);
-//     }
-// })
 
 cloudinary.v2.config({ 
     cloud_name: 'tsa2341', 
@@ -40,7 +30,6 @@ const fileFilter = (req, file, cb) => {
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/svg') {
         cb(null, true);
     } else {
-        console.log(file.mimetype);
         req.error = `${file.mimetype.split('/')[1]} is not an image`
         cb(null, false)
     }

@@ -25,7 +25,7 @@ export default class ArticleServices {
         try {
             const article = await ArticleModel.findOne({ _id: id });
             if (article === null) {
-                throw `Article ${id} can't be found`;
+                throw { message: `Article ${id} can't be found`};
             }
             return article;
         } catch (error) {
@@ -38,7 +38,7 @@ export default class ArticleServices {
     
             article.title = data.title || article.title;
             article.description = data.description || article.description;
-            article.image = image || article.image;
+            article.image = (image && image !== "no image") ? image : article.image;
     
             await article.save();
             return article;
@@ -48,10 +48,44 @@ export default class ArticleServices {
     }
     async deleteArticle(id) {
         try {
-            await ArticleModel.deleteOne({ _id: id })
-            return true;
+            const result = await ArticleModel.deleteOne({ _id: id })
+            return result;
         } catch (error) {
             throw error;
+        }
+    }
+
+    // likes
+    async getLikes(id) {
+        try {
+            const result = await ArticleModel.findById({ _id: id });
+            return {likes: result.likes, dislikes: result.dislikes};
+        } catch (error) {
+            throw error
+        }
+    }
+    async updateLikes(id, data) {
+        try {
+            const result = await ArticleModel.findById({ _id: id });
+            if(data.likes) result.likes = data.likes;
+            if(data.dislikes) result.dislikes = data.dislikes;
+            await result.save();
+            return {likes: result.likes, dislikes: result.dislikes};
+        } catch (error) {
+            throw error
+        }
+    }
+
+    // comments
+
+    async getcomments(req, res, next) {
+        try {} catch (error) {
+            throw error
+        }
+    }
+    async createComments(req, res, next) {
+        try {} catch (error) {
+            throw error
         }
     }
 }

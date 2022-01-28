@@ -12,8 +12,8 @@ const schema = mongoose.Schema({
         }],
         required: false
     },
-    likes: { type: Number, required: false },
-    dislikes: { type: Number, required: false },
+    likes: { type: Number,default: 0, required: false },
+    dislikes: { type: Number, default: 0, required: false },
 })
 
 export default mongoose.model('ArticleModel', schema);

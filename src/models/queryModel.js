@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const schema = mongoose.Schema({
     description: { type: String, required: true },
-    location: String,
+    location: { type: String, required: true },
     date: Date
 })
 
