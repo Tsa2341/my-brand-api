@@ -22,8 +22,8 @@ export default class QueryServices {
     }
     async deleteQuery(id) {
         try {
-            await QueryModel.deleteOne({ _id: id })
-            return true;
+            const result = await QueryModel.deleteOne({ _id: id })
+            return result;
         } catch (error) {
             throw error;
         }
@@ -31,8 +31,8 @@ export default class QueryServices {
 
     async deleteAllQuery() {
         try {
-            await QueryModel.deleteMany({})
-            return true;
+            const result = await QueryModel.deleteMany({})
+            return result;
         } catch (error) {
             throw error;
         }
