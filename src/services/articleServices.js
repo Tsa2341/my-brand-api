@@ -9,7 +9,7 @@ export default class ArticleServices {
             await article.save();
             return article;
         } catch (error) {
-            return error;
+            throw error;
         }
     }
 
@@ -18,18 +18,18 @@ export default class ArticleServices {
             const articles = await ArticleModel.find();
             return articles;
         } catch (error) {
-            return error;
+            throw error;
         }
     }
     async getArticle(id) {
         try {
             const article = await ArticleModel.findOne({ _id: id });
             if (article === null) {
-                return `Article ${id} can't be found`
+                throw `Article ${id} can't be found`;
             }
             return article;
         } catch (error) {
-            return error;
+            throw error
         }
     }
     async updateArticle(id, data, image) { 
@@ -43,7 +43,7 @@ export default class ArticleServices {
             await article.save();
             return article;
         } catch (error) {
-            return error;
+            throw error;
         }
     }
     async deleteArticle(id) {
@@ -51,7 +51,7 @@ export default class ArticleServices {
             await ArticleModel.deleteOne({ _id: id })
             return true;
         } catch (error) {
-            return error;
+            throw error;
         }
     }
 }

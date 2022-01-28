@@ -22,7 +22,6 @@ export default class QueryControllers {
             location: req.body.location,
             date: date
         })
-
         return result;
     }
     

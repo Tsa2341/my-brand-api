@@ -53,7 +53,7 @@ const upload = multer({
 
 routes.use('/', welcomeRoutes)
 routes.use('/articles',upload.single("image"), articleRoutes)
-routes.use('/queries', queryRoutes)
+routes.use('/querries',upload.single(""), queryRoutes)
 routes.use('/user', userRoutes)
 
 export default routes
