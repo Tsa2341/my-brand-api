@@ -11,9 +11,9 @@ const routes = express.Router()
 
 
 cloudinary.v2.config({ 
-    cloud_name: 'tsa2341', 
-    api_key: '689165441914455', 
-    api_secret: 'A9M6EqPsF-yiQxvtn2uLkaSjLY0' 
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.API_KEY, 
+    api_secret: process.env.API_SECRET
 });
 
 const storage = new CloudinaryStorage({
