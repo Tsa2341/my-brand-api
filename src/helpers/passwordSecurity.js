@@ -10,5 +10,9 @@ export const hashPassword = (plainPassword) => {
 export const comparePassword = async (plainPassword, hash) => {
     const result = bcrypt.compareSync(plainPassword, hash)
     return result
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> 1643e92 (ft: add authentication and validation on required routes)

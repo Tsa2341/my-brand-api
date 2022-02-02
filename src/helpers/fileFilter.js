@@ -4,5 +4,9 @@ export const fileFilter = (req, file, cb) => {
     } else {
         cb('invalid image file!', false);
     }
+<<<<<<< HEAD
 };
 
+=======
+};
+>>>>>>> 1643e92 (ft: add authentication and validation on required routes)

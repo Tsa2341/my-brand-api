@@ -12,6 +12,9 @@ const userControllers = new UserControllers()
 
 route.post('/register', uploads.single('image'), userValidation, userControllers.register)
 route.post('/login',uploads.single(''), userValidation, userControllers.login)
+<<<<<<< HEAD
 
 export default route
+=======
+>>>>>>> 1643e92 (ft: add authentication and validation on required routes)
 
