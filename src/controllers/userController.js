@@ -97,7 +97,7 @@ export class UserControllers {
                 res.status(201).json({ status: 201, message: "user registered successfully", user: createdUser })
             }
         } catch (error) {
-            res.status(404).json({status: 404, message: error.message || "can't register the user"})
+            res.status(500).json({status: 404, message: error.message || "can't register the user"})
         }
     }
     async login(req, res, next) {
@@ -116,7 +116,7 @@ export class UserControllers {
             }
 
         } catch (error) {
-            res.status(404).json({status: 404, message: error.message || "can't login the user"})
+            res.status(500).json({status: 404, message: error.message || "can't login the user"})
         }
     }
 }
