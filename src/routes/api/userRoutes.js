@@ -1,9 +1,16 @@
 import express from 'express'
+import multer from 'multer';
+import { UserControllers } from '../../controllers/userController.js';
+import { fileFilter } from '../../helpers/fileFilter.js';
+import { userValidation } from '../../validations/userValidation/user.validation.js';
 
 const route = express.Router()
+const storage = multer.diskStorage({});
 
-route.get('/', (req, res, next) => {
-    res.status(200).json({ status: 200, message: "this will return all users", data: "" })
-})
+const uploads = multer({ storage, fileFilter });
+const userControllers = new UserControllers()
+
+route.post('/register', uploads.single('image'), userValidation, userControllers.register)
+route.post('/login',uploads.single(''), userValidation, userControllers.login)
 
 export default route

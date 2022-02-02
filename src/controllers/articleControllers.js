@@ -42,16 +42,17 @@ export default class ArticleControllers {
     }
     async getArticle(req, res, next) {
         try {
-            const result = await this.services.getArticle(req.params.id);
+            const result = await this.services.getArticle(req.params.id, res);
             res.status(200).json({ status: 200, message: "this will return one article", data: result })
         } catch (error) {
-            res.status(404).json({ status: 404, message: error.message || "couldn't create get the article", data: '' })
+            // console.log(error)
+            res.status(404).json({ status: 404, message: error.message || "couldn't create the article", data: '' })
         }
     }
     async updateArticle(req, res, next) {
         try {
             const image = (req.file && req.file.path) ? req.file.path : "no image";
-            const result = await this.services.updateArticle(req.params.id, req.body, image);
+            const result = await this.services.updateArticle(req.params.id, req.body, image, res);
             res.status(201).json({ status: 201, message: "this will update one article", data: result })
         } catch (error) {
             res.status(404).json({ status: 404, message: error.message || "couldn't update the article", data: '' })

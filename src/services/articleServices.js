@@ -1,4 +1,5 @@
 import ArticleModel from '../models/articleModel.js'
+import {createArticleError, idArticleError} from '../helpers/errorFormatter.js';
 
 // import the model you need to access
 export default class ArticleServices {
@@ -9,7 +10,7 @@ export default class ArticleServices {
             await article.save();
             return article;
         } catch (error) {
-            throw error;
+            throw await createArticleError(newError)
         }
     }
 
@@ -32,9 +33,11 @@ export default class ArticleServices {
             throw error
         }
     }
-    async updateArticle(id, data, image) { 
+    async updateArticle(id, data, image, res) { 
         try {
             const article = await ArticleModel.findOne({ _id: id });
+
+            if(article === null) throw { message: `Article ${id} can't be found`};
     
             article.title = data.title || article.title;
             article.description = data.description || article.description;
@@ -43,7 +46,7 @@ export default class ArticleServices {
             await article.save();
             return article;
         } catch (error) {
-            throw error;
+            throw { message: `Article ${id} can't be found`};
         }
     }
     async deleteArticle(id) {
