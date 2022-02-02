@@ -14,3 +14,4 @@ route.post('/register', uploads.single('image'), userValidation, userControllers
 route.post('/login',uploads.single(''), userValidation, userControllers.login)
 
 export default route
+

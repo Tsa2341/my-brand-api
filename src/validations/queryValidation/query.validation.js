@@ -12,3 +12,4 @@ export const queryValidation = async (req, res, next) => {
         next();
     }
 }
+

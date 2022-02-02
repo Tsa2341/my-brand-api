@@ -15,3 +15,4 @@ export const createUser = async (user) => {
     delete userCreated.password;
     return userCreated
 }
+

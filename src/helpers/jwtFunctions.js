@@ -12,3 +12,4 @@ export const decodeToken = async (token) => {
     const decoded = await jwt.verify(token, secret);
     return decoded;
 };
+

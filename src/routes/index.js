@@ -46,3 +46,4 @@ routes.use('/querries',upload.single(""), queryRoutes)
 routes.use('/user', userRoutes)
 
 export default routes
+

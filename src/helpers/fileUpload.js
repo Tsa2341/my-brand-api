@@ -7,3 +7,4 @@ export const uploadFile = async (req) => {
     });
     return imageUrl
 }
+
