@@ -6,3 +6,4 @@ const route = express.Router()
 route.get('/', welcome)
 
 export default route
+
