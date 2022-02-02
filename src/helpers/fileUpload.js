@@ -6,5 +6,9 @@ export const uploadFile = async (req) => {
         imageUrl = image.url
     });
     return imageUrl
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> 1643e92 (ft: add authentication and validation on required routes)
