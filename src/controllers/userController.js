@@ -16,16 +16,16 @@ export class UserControllers {
           });
       } else {
         if (req.file) {
-          req.body.picture = await uploadFile(req);
+          req.body.image = await uploadFile(req);
         } else {
-          req.body.picture =
+          req.body.image =
             "https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png";
         }
         const user = {
           username: req.body.username,
           email: req.body.email,
           password: await hashPassword(req.body.password),
-          picture: req.body.picture,
+          image: req.body.image,
         };
         const createdUser = await createUser(user);
         res

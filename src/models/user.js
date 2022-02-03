@@ -7,13 +7,13 @@ const opts = {
     }
 };
 const schema = mongoose.Schema(
-    {
-        username: String,
-        email: String,
-        password: String,
-        picture: String,
-    },
-    opts
-)
+  {
+    username: String,
+    email: String,
+    password: String,
+    image: String,
+  },
+  opts
+);
 
 export default mongoose.model("User", schema)
