@@ -11,9 +11,5 @@ export const generateToken = (payload, expiresIn = '7d') => {
 export const decodeToken = async (token) => {
     const decoded = await jwt.verify(token, secret);
     return decoded;
-<<<<<<< HEAD
 };
 
-=======
-};
->>>>>>> 1643e92 (ft: add authentication and validation on required routes)
