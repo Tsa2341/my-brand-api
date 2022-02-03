@@ -12,7 +12,4 @@ export const queryValidation = async (req, res, next) => {
         next();
     }
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 1643e92 (ft: add authentication and validation on required routes)
