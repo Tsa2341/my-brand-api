@@ -23,7 +23,6 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should retrieve one article", async () => {
-      await ArticleModel.deleteMany({});
       const article = new ArticleModel({
         title: "title",
         description: "hello",
@@ -50,7 +49,6 @@ describe("ARTICLE END-POINT TESTING", () => {
     before(async () => {
       try {
         //save an article
-        await ArticleModel.deleteMany({});
         const article = new ArticleModel({
           title: "title",
           description: "hello",
@@ -66,8 +64,6 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should create an article", async () => {
-      await ArticleModel.deleteMany({});
-
       const res = await request(app)
         .post("/api/v1/articles/")
         .set("Authorization", token)
@@ -82,8 +78,6 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should not create an article without authentication", async () => {
-      await ArticleModel.deleteMany({});
-
       const res = await request(app)
         .post("/api/v1/articles/")
         .attach(
@@ -96,8 +90,6 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should not create an article without title", async () => {
-      await ArticleModel.deleteMany({});
-
       const res = await request(app)
         .post("/api/v1/articles/")
         .set("Authorization", token)
@@ -118,7 +110,6 @@ describe("ARTICLE END-POINT TESTING", () => {
     before(async () => {
       try {
         //save an article
-        await ArticleModel.deleteMany({});
         article = new ArticleModel({
           title: "title",
           description: "hello",
@@ -148,8 +139,6 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should not update an article without authentication", async () => {
-      await ArticleModel.deleteMany({});
-
       const res = await request(app)
         .patch("/api/v1/articles/" + article._id)
         .attach(
@@ -169,7 +158,6 @@ describe("ARTICLE END-POINT TESTING", () => {
     beforeEach(async () => {
       try {
         //save an article
-        await ArticleModel.deleteMany({});
         article = new ArticleModel({
           title: "title",
           description: "hello",

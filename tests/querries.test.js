@@ -16,7 +16,6 @@ describe("QUERY END-POINT TESTING", () => {
   before(async () => {
     try {
       //save an article
-      await QueryModel.deleteMany({});
       query = new QueryModel({
         description: "hello",
         location: "kigali",
@@ -55,8 +54,6 @@ describe("QUERY END-POINT TESTING", () => {
 
   describe("CREATE QUERY END-POINT TESTING", async () => {
     it("Should create a querry", async () => {
-      await QueryModel.deleteMany({});
-
       const res = await request(app)
         .post("/api/v1/querries/")
         .send({ description: "hello", location: "kigali" });
@@ -65,8 +62,6 @@ describe("QUERY END-POINT TESTING", () => {
     });
 
     it("Should not create a query without description", async () => {
-      await QueryModel.deleteMany({});
-
       const res = await request(app)
         .post("/api/v1/querries/")
         .send({ location: "kigali" });
@@ -75,14 +70,12 @@ describe("QUERY END-POINT TESTING", () => {
   });
 
   describe("DELETE QUERY END-POINT TESTING", async () => {
-
     let token = null;
     let query = null;
 
     beforeEach(async () => {
       try {
         //save an article
-        await QueryModel.deleteMany({});
         query = new QueryModel({
           description: "hello",
           location: "kigali",
