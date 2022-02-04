@@ -6,6 +6,7 @@ import { before, beforeEach } from "mocha";
 import ArticleModel from "../src/models/articleModel";
 import User from "../src/models/user";
 import { generateToken } from "../src/helpers/jwtFunctions.js";
+import fs from "fs";
 
 use(chaiHttp);
 
@@ -23,6 +24,7 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should retrieve one article", async () => {
+      await ArticleModel.deleteMany({});
       const article = new ArticleModel({
         title: "title",
         description: "hello",
@@ -48,21 +50,33 @@ describe("ARTICLE END-POINT TESTING", () => {
 
     before(async () => {
       try {
-        let _id = "61f3f9d19c63a8eac1c85b8d";
+        //save an article
+        await ArticleModel.deleteMany({});
+        const article = new ArticleModel({
+          title: "title",
+          description: "hello",
+          image: fs.readFileSync(
+            "./public/images/FB_IMG_15760502641137579.jpg"
+          ),
+        });
+        await article.save();
+
         //get a token
-        token = await generateToken(_id);
+        token = await generateToken(article._id);
       } catch (error) {
         console.log(error);
       }
     });
 
     it("Should create an article", async () => {
+      await ArticleModel.deleteMany({});
+
       const res = await request(app)
         .post("/api/v1/articles/")
         .set("Authorization", token)
         .attach(
           "image",
-          "./public/images/FB_IMG_15760502641137579.jpg",
+          fs.readFileSync("./public/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
         .field({ title: "title", description: "hello" });
@@ -71,11 +85,13 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should not create an article without authentication", async () => {
+      await ArticleModel.deleteMany({});
+
       const res = await request(app)
         .post("/api/v1/articles/")
         .attach(
           "image",
-          "./public/images/FB_IMG_15760502641137579.jpg",
+          fs.readFileSync("./public/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
         .field({ title: "title", description: "hello" });
@@ -83,12 +99,14 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should not create an article without title", async () => {
+      await ArticleModel.deleteMany({});
+
       const res = await request(app)
         .post("/api/v1/articles/")
         .set("Authorization", token)
         .attach(
           "image",
-          "./public/images/FB_IMG_15760502641137579.jpg",
+          fs.readFileSync("./public/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
         .field({ description: "hello" });
@@ -103,10 +121,13 @@ describe("ARTICLE END-POINT TESTING", () => {
     before(async () => {
       try {
         //save an article
+        await ArticleModel.deleteMany({});
         article = new ArticleModel({
           title: "title",
           description: "hello",
-          image: "./public/images/FB_IMG_15760502641137579.jpg",
+          image: fs.readFileSync(
+            "./public/images/FB_IMG_15760502641137579.jpg"
+          ),
         });
         await article.save();
 
@@ -123,7 +144,7 @@ describe("ARTICLE END-POINT TESTING", () => {
         .set("Authorization", token)
         .attach(
           "image",
-          "./public/images/FB_IMG_15760502641137579.jpg",
+          fs.readFileSync("./public/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
         .field({ title: "title2", description: "hello2" });
@@ -132,11 +153,13 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should not update an article without authentication", async () => {
+      await ArticleModel.deleteMany({});
+
       const res = await request(app)
         .patch("/api/v1/articles/" + article._id)
         .attach(
           "image",
-          "./public/images/FB_IMG_15760502641137579.jpg",
+          fs.readFileSync("./public/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
         .field({ title: "title2", description: "hello2" });
@@ -151,10 +174,13 @@ describe("ARTICLE END-POINT TESTING", () => {
     beforeEach(async () => {
       try {
         //save an article
+        await ArticleModel.deleteMany({});
         article = new ArticleModel({
           title: "title",
           description: "hello",
-          image: "./public/images/FB_IMG_15760502641137579.jpg",
+          image: fs.readFileSync(
+            "./public/images/FB_IMG_15760502641137579.jpg"
+          ),
         });
         await article.save();
 

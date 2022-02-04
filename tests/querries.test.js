@@ -6,19 +6,26 @@ import { before, beforeEach } from "mocha";
 import QueryModel from "../src/models/queryModel";
 import User from "../src/models/user";
 import { generateToken } from "../src/helpers/jwtFunctions.js";
+import fs from "fs";
 
 use(chaiHttp);
 
 describe("QUERY END-POINT TESTING", () => {
   let token = null;
+  let query = null;
 
   before(async () => {
     try {
       //save an article
-      let _id = "61f3f9d19c63a8eac1c85b8d";
+      await QueryModel.deleteMany({});
+      query = new QueryModel({
+        description: "hello",
+        location: "kigali",
+      });
+      await query.save();
 
       //get a token
-      token = await generateToken(_id);
+      token = await generateToken(query._id);
     } catch (error) {
       console.log(error);
     }
@@ -49,6 +56,8 @@ describe("QUERY END-POINT TESTING", () => {
 
   describe("CREATE QUERY END-POINT TESTING", async () => {
     it("Should create a querry", async () => {
+      await QueryModel.deleteMany({});
+
       const res = await request(app)
         .post("/api/v1/querries/")
         .send({ description: "hello", location: "kigali" });
@@ -57,6 +66,8 @@ describe("QUERY END-POINT TESTING", () => {
     });
 
     it("Should not create a query without description", async () => {
+      await QueryModel.deleteMany({});
+
       const res = await request(app)
         .post("/api/v1/querries/")
         .send({ location: "kigali" });
@@ -71,6 +82,7 @@ describe("QUERY END-POINT TESTING", () => {
     beforeEach(async () => {
       try {
         //save an article
+        await QueryModel.deleteMany({});
         query = new QueryModel({
           description: "hello",
           location: "kigali",

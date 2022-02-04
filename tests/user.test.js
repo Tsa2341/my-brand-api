@@ -5,6 +5,7 @@ import "dotenv/config";
 import { before, beforeEach } from "mocha";
 import User from "../src/models/user";
 import { hashPassword } from "../src/helpers/passwordSecurity";
+import fs from "fs";
 
 use(chaiHttp);
 
@@ -20,7 +21,7 @@ describe("USER END-POINT TESTING", () => {
         .post("/api/v1/user/register")
         .attach(
           "image",
-          "./public/images/FB_IMG_15760502641137579.jpg",
+          fs.readFileSync("./public/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
         .field({
