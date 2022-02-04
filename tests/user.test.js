@@ -5,7 +5,7 @@ import "dotenv/config";
 import { before, beforeEach } from "mocha";
 import User from "../src/models/user";
 import { hashPassword } from "../src/helpers/passwordSecurity";
-import fs from "fs";
+import { join } from "path";
 
 use(chaiHttp);
 
@@ -16,12 +16,14 @@ describe("USER END-POINT TESTING", () => {
       await User.deleteMany({});
     });
 
+    console.log(__dirname);
+
     it("Should register a user", async () => {
       const res = await request(app)
         .post("/api/v1/user/register")
         .attach(
           "image",
-          fs.readFileSync("./public/images/FB_IMG_15760502641137579.jpg"),
+          join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
         .field({

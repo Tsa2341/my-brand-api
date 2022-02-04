@@ -7,6 +7,7 @@ import ArticleModel from "../src/models/articleModel";
 import User from "../src/models/user";
 import { generateToken } from "../src/helpers/jwtFunctions.js";
 import fs from "fs";
+import { join } from "path";
 
 use(chaiHttp);
 
@@ -55,9 +56,7 @@ describe("ARTICLE END-POINT TESTING", () => {
         const article = new ArticleModel({
           title: "title",
           description: "hello",
-          image: fs.readFileSync(
-            "./public/images/FB_IMG_15760502641137579.jpg"
-          ),
+          image: join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
         });
         await article.save();
 
@@ -76,7 +75,7 @@ describe("ARTICLE END-POINT TESTING", () => {
         .set("Authorization", token)
         .attach(
           "image",
-          fs.readFileSync("./public/images/FB_IMG_15760502641137579.jpg"),
+          join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
         .field({ title: "title", description: "hello" });
@@ -91,7 +90,7 @@ describe("ARTICLE END-POINT TESTING", () => {
         .post("/api/v1/articles/")
         .attach(
           "image",
-          fs.readFileSync("./public/images/FB_IMG_15760502641137579.jpg"),
+          join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
         .field({ title: "title", description: "hello" });
@@ -106,7 +105,7 @@ describe("ARTICLE END-POINT TESTING", () => {
         .set("Authorization", token)
         .attach(
           "image",
-          fs.readFileSync("./public/images/FB_IMG_15760502641137579.jpg"),
+          join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
         .field({ description: "hello" });
@@ -125,9 +124,7 @@ describe("ARTICLE END-POINT TESTING", () => {
         article = new ArticleModel({
           title: "title",
           description: "hello",
-          image: fs.readFileSync(
-            "./public/images/FB_IMG_15760502641137579.jpg"
-          ),
+          image: join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
         });
         await article.save();
 
@@ -144,7 +141,7 @@ describe("ARTICLE END-POINT TESTING", () => {
         .set("Authorization", token)
         .attach(
           "image",
-          fs.readFileSync("./public/images/FB_IMG_15760502641137579.jpg"),
+          join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
         .field({ title: "title2", description: "hello2" });
@@ -159,7 +156,7 @@ describe("ARTICLE END-POINT TESTING", () => {
         .patch("/api/v1/articles/" + article._id)
         .attach(
           "image",
-          fs.readFileSync("./public/images/FB_IMG_15760502641137579.jpg"),
+          join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
         .field({ title: "title2", description: "hello2" });
@@ -178,9 +175,7 @@ describe("ARTICLE END-POINT TESTING", () => {
         article = new ArticleModel({
           title: "title",
           description: "hello",
-          image: fs.readFileSync(
-            "./public/images/FB_IMG_15760502641137579.jpg"
-          ),
+          image: join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
         });
         await article.save();
 
