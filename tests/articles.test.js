@@ -48,16 +48,9 @@ describe("ARTICLE END-POINT TESTING", () => {
 
     before(async () => {
       try {
-        //save an article
-        const article = new ArticleModel({
-          title: "title",
-          description: "hello",
-          image: "./public/images/FB_IMG_15760502641137579.jpg",
-        });
-        await article.save();
-
+        let _id = "61f3f9d19c63a8eac1c85b8d";
         //get a token
-        token = await generateToken(article._id);
+        token = await generateToken(_id);
       } catch (error) {
         console.log(error);
       }

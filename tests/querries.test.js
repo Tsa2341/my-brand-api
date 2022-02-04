@@ -11,19 +11,14 @@ use(chaiHttp);
 
 describe("QUERY END-POINT TESTING", () => {
   let token = null;
-  let query = null;
 
   before(async () => {
     try {
       //save an article
-      query = new QueryModel({
-        description: "hello",
-        location: "kigali",
-      });
-      await query.save();
+      let _id = "61f3f9d19c63a8eac1c85b8d";
 
       //get a token
-      token = await generateToken(query._id);
+      token = await generateToken(_id);
     } catch (error) {
       console.log(error);
     }
