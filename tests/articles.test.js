@@ -11,7 +11,7 @@ import { join } from "path";
 
 use(chaiHttp);
 
-describe.only("ARTICLE END-POINT TESTING", () => {
+describe("ARTICLE END-POINT TESTING", () => {
   describe("GET ARTICLE END-POINT TESTING", () => {
     it("Should retrieve all articles", async () => {
       const res = await request(app).get("/api/v1/articles/");
@@ -46,7 +46,7 @@ describe.only("ARTICLE END-POINT TESTING", () => {
     });
   });
 
-  describe.only("CREATE ARTICLE END-POINT TESTING", () => {
+  describe("CREATE ARTICLE END-POINT TESTING", () => {
     let token = null;
 
     before(async () => {
@@ -61,7 +61,7 @@ describe.only("ARTICLE END-POINT TESTING", () => {
         await article.save();
 
         //get a token
-        token = await generateToken(article._id);
+        token = `Bearer ${await generateToken(article._id)}`;
       } catch (error) {
         console.log(error);
       }
@@ -79,7 +79,6 @@ describe.only("ARTICLE END-POINT TESTING", () => {
           "img.jpg"
         )
         .field({ title: "title", description: "hello" });
-      console.log(res);
       expect(res).to.have.status([201]);
       expect(res.type).to.have.equal("application/json");
     });
@@ -130,7 +129,7 @@ describe.only("ARTICLE END-POINT TESTING", () => {
         await article.save();
 
         //get a token
-        token = await generateToken(article._id);
+        token = `Bearer ${await generateToken(article._id)}`;
       } catch (error) {
         console.log(error);
       }
@@ -181,7 +180,7 @@ describe.only("ARTICLE END-POINT TESTING", () => {
         await article.save();
 
         //get a token
-        token = await generateToken(article._id);
+        token = `Bearer ${await generateToken(article._id)}`;
       } catch (error) {
         console.log(error);
       }

@@ -25,7 +25,7 @@ describe("QUERY END-POINT TESTING", () => {
       await query.save();
 
       //get a token
-      token = await generateToken(query._id);
+      token = `Bearer ${await generateToken(query._id)}`;
     } catch (error) {
       console.log(error);
     }
@@ -90,7 +90,7 @@ describe("QUERY END-POINT TESTING", () => {
         await query.save();
 
         //get a token
-        token = await generateToken(query._id);
+        token = `Bearer ${await generateToken(query._id)}`;
       } catch (error) {
         console.log(error);
       }
