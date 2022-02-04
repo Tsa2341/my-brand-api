@@ -12,7 +12,11 @@ try {
     if (mode === "development") {
         mongoose.connect(process.env.DEVELOPMENT_DB, { useNewUrlParser: true })
     } else if (mode === "test") {
-        mongoose.connect(process.env.TEST_DB, { useNewUrlParser: true })
+        mongoose
+          .connect(process.env.TEST_DB, { useNewUrlParser: true })
+          .then(() => {
+            console.log("mangoosest");
+          });
     } else if (mode === "production") {
         mongoose.connect(process.env.PRODUCTION_DB, { useNewUrlParser: true })
     }
