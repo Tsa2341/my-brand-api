@@ -38,6 +38,7 @@ export default class ArticleServices {
       article.image = image && image !== "no image" ? image : article.image;
 
       await article.save();
+      console.log(article);
       return article;
     } catch (error) {
       throw error;
