@@ -121,7 +121,7 @@ describe("ARTICLE END-POINT TESTING", () => {
       try {
         //save an article
         await ArticleModel.deleteMany({});
-        article = new ArticleModel({
+        article = await new ArticleModel({
           title: "title",
           description: "hello",
           image: join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
@@ -129,7 +129,7 @@ describe("ARTICLE END-POINT TESTING", () => {
         await article.save();
 
         //get a token
-        token = `Bearer ${await generateToken(article._id)}`;
+        token = `Bearer ${generateToken(article._id)}`;
       } catch (error) {
         console.log(error);
       }
@@ -150,8 +150,6 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should not update an article without authentication", async () => {
-      await ArticleModel.deleteMany({});
-
       const res = await request(app)
         .patch("/api/v1/articles/" + article._id)
         .attach(

@@ -32,6 +32,7 @@ export default class ArticleServices {
   async updateArticle(id, data, image, res) {
     try {
       console.log(id, data);
+      console.log(await ArticleModel.find());
       const article = await ArticleModel.findOne({ _id: id });
       console.log(article);
       article.title = data.title || article.title;
