@@ -79,6 +79,7 @@ export default class ArticleControllers {
         image,
         res
       );
+      if (result === null) throw { message: `Article ${id} can't be found` };
       res.status(201).json({
         message: "this will update one article",
         data: result,
