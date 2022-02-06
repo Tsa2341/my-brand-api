@@ -1,4 +1,5 @@
 import ArticleModel from "../models/articleModel.js";
+import CommentModel from "../models/commentModel.js";
 
 // import the model you need to access
 export default class ArticleServices {
@@ -57,38 +58,51 @@ export default class ArticleServices {
   }
 
   // likes
-  async getLikes(id) {
+  async getLikes(id, res) {
     try {
       const result = await ArticleModel.findById({ _id: id });
+      if (!result) throw new Error("article not found");
       return { likes: result.likes, dislikes: result.dislikes };
     } catch (error) {
-      throw error;
+      throw { message: `Article ${id} can't be found` };
     }
   }
-  async updateLikes(id, data) {
+  async updateLikes(id, data, res) {
     try {
       const result = await ArticleModel.findById({ _id: id });
+      if (!result) throw new Error("article not found");
       if (data.likes) result.likes = data.likes;
       if (data.dislikes) result.dislikes = data.dislikes;
       await result.save();
       return { likes: result.likes, dislikes: result.dislikes };
     } catch (error) {
-      throw error;
+      throw { message: `Article ${id} can't be found` };
     }
   }
 
   // comments
 
-  async getcomments(req, res, next) {
+  async getComments(id, res) {
     try {
+      const article = await ArticleModel.findOne({ _id: id });
+      if (!article) throw new Error("article not found");
+      return article.comments;
     } catch (error) {
-      throw error;
+      throw { message: `Article ${id} can't be found` };
     }
   }
-  async createComments(req, res, next) {
+  async createComment(data, id, res) {
     try {
+      const article = await ArticleModel.findOne({ _id: id });
+      if (!article) throw new Error("article not found");
+      await article.comments.push({
+        ...data,
+        date: new Date().toISOString(),
+      });
+      await article.save();
+      return article.comments.slice(-1);
     } catch (error) {
-      throw error;
+      throw { message: `Article ${id} can't be found` };
     }
   }
 }

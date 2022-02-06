@@ -1,8 +1,8 @@
-// import mongoose from 'mongoose'
+import mongoose from 'mongoose'
 
-// const schema = mongoose.Schema({
-//     description: String,
-//     date: Date
-// })
+const schema = mongoose.Schema({
+ description: { type: String, required: true},
+ date: { type: Date, default: new Date().toISOString()}
+})
 
-// export default CommentModal = mongoose.model('CommentSchema', schema)
+export default mongoose.model('CommentModel', schema)

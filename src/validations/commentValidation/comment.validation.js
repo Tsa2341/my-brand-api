@@ -5,9 +5,8 @@ export const commentValidation = async (req, res, next) => {
     const value = await commentSchema.validate(req.body);
     if (value.error) {
         res.status(406).json({
-									error: 1,
-									message: value.error.details[0].message.replaceAll('"', ""),
-								});
+          message: value.error.details[0].message.replaceAll('"', ""),
+        });
     } else {
         next();
     }

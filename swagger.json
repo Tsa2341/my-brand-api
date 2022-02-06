@@ -126,7 +126,7 @@
           {
             "name": "description",
             "in": "formData",
-            "description": "desscription",
+            "description": "description",
             "required": true
           },
           {
@@ -191,7 +191,7 @@
           {
             "name": "description",
             "in": "formData",
-            "description": "desscription",
+            "description": "description",
             "required": true
           },
           {
@@ -210,9 +210,9 @@
       },
       "delete": {
         "tags": ["Articles"],
-        "summary": "Delete querry",
-        "description": "Delete querry",
-        "operationId": "deleteQuerry",
+        "summary": "Delete article",
+        "description": "Delete article",
+        "operationId": "deleteArticle",
         "parameters": [
           {
             "name": "id",
@@ -230,6 +230,101 @@
         "responses": {
           "200": {
             "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/articles/{id}/comments": {
+      "get": {
+        "tags": ["Articles"],
+        "summary": "Get all comments",
+        "description": "Get all comments",
+        "operationId": "getComments",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Articles"],
+        "summary": "Create a comment",
+        "description": "Create a comment",
+        "operationId": "createComment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "description",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/api/v1/articles/{id}/likes": {
+      "get": {
+        "tags": ["Articles"],
+        "summary": "Get likes",
+        "description": "Get likes",
+        "operationId": "getLikes",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Articles"],
+        "summary": "Update likes",
+        "description": "Update likes",
+        "operationId": "UpdateLikes",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "description": "description",
+            "schema": {
+              "$ref": "#/definitions/likes"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
           }
         }
       }
@@ -283,7 +378,7 @@
         "tags": ["Querries"],
         "summary": "Delete all querries",
         "description": "Delete all querries",
-        "operationId": "deleteQuerry",
+        "operationId": "deleteQuerries",
         "parameters": [
           {
             "name": "Authorization",
@@ -332,14 +427,27 @@
       "type": "object",
       "properties": {
         "username": {
-          "type": "string"
+          "type": "string",
+          "required": true
         },
         "email": {
           "type": "string",
           "required": true
         },
         "password": {
-          "type": "string"
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "likes": {
+      "type": "object",
+      "properties": {
+        "likes": {
+          "type": "number"
+        },
+        "dislikes": {
+          "type": "number"
         }
       }
     }

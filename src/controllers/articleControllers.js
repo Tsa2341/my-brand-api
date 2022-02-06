@@ -26,19 +26,15 @@ export default class ArticleControllers {
         date: date,
       });
 
-      res
-        .status(201)
-        .json({
-          message: "this will save an article",
-          data: result,
-        });
+      res.status(201).json({
+        message: "this will save an article",
+        data: result,
+      });
     } catch (error) {
-      res
-        .status(404)
-        .json({
-          message: error.message || "couldn't create the article",
-          data: "",
-        });
+      res.status(404).json({
+        message: error.message || "couldn't create the article",
+        data: "",
+      });
     }
   }
 
@@ -49,12 +45,10 @@ export default class ArticleControllers {
         .status(200)
         .json({ message: "this will return all articles", data: results });
     } catch (error) {
-      res
-        .status(404)
-        .json({
-          message: error.message || "couldn't create get the articles",
-          data: "",
-        });
+      res.status(404).json({
+        message: error.message || "couldn't create get the articles",
+        data: "",
+      });
     }
   }
   async getArticle(req, res, next) {
@@ -65,13 +59,10 @@ export default class ArticleControllers {
         .json({ message: "this will return one article", data: result });
     } catch (error) {
       // console.log(error)
-      res
-        .status(404)
-        .json({
-          
-          message: error.message || "couldn't create the article",
-          data: "",
-        });
+      res.status(404).json({
+        message: error.message || "couldn't create the article",
+        data: "",
+      });
     }
   }
   async updateArticle(req, res, next) {
@@ -83,19 +74,15 @@ export default class ArticleControllers {
         image,
         res
       );
-      res
-        .status(201)
-        .json({
-          message: "this will update one article",
-          data: result,
-        });
+      res.status(201).json({
+        message: "this will update one article",
+        data: result,
+      });
     } catch (error) {
-      res
-        .status(404)
-        .json({
-          message: error.message || "couldn't update the article",
-          data: "",
-        });
+      res.status(404).json({
+        message: error.message || "couldn't update the article",
+        data: "",
+      });
     }
   }
   async deleteArticle(req, res, next) {
@@ -105,12 +92,10 @@ export default class ArticleControllers {
         .status(200)
         .json({ message: "this will delete one article", data: result });
     } catch (error) {
-      res
-        .status(404)
-        .json({
-          message: error.message || "couldn't delete the article",
-          data: "",
-        });
+      res.status(404).json({
+        message: error.message || "couldn't delete the article",
+        data: "",
+      });
     }
   }
 
@@ -118,50 +103,60 @@ export default class ArticleControllers {
 
   async getLikes(req, res, next) {
     try {
-      const result = await this.services.getLikes(req.params.id);
+      const result = await this.services.getLikes(req.params.id,res);
       res
         .status(200)
         .json({ message: "this will get likes of an article", data: result });
     } catch (error) {
-      res
-        .status(404)
-        .json({
-          message: error.message || "couldn't get the likes",
-          data: "",
-        });
+      res.status(404).json({
+        message: error.message || "couldn't get the likes",
+        data: "",
+      });
     }
   }
   async updateLikes(req, res, next) {
     try {
-      const result = await this.services.updateLikes(req.params.id, req.body);
-      res
-        .status(200)
-        .json({
-          message: "this will save new likes of an article",
-          data: result,
-        });
+      const result = await this.services.updateLikes(req.params.id, req.body,res);
+      res.status(200).json({
+        message: "this will save new likes of an article",
+        data: result,
+      });
     } catch (error) {
-      res
-        .status(404)
-        .json({
-          message: error.message || "couldn't update the likes",
-          data: "",
-        });
+      res.status(404).json({
+        message: error.message || "couldn't update the likes",
+        data: "",
+      });
     }
   }
 
   // comments
 
-  async getcomments(req, res, next) {
+  async getComments(req, res, next) {
     try {
+      const comments = await this.services.getComments(req.params.id, res);
+      res.status(200).json({
+        message: "this will get all comments of an article",
+        data: comments,
+      });
     } catch (error) {
-      throw error;
+      res.status(404).json({
+        message: error.message || "couldn't get comments",
+        data: "",
+      });
     }
   }
-  async createComments(req, res, next) {
+  async createComment(req, res, next) {
     try {
+      const comment = await this.services.createComment(req.body, req.params.id, res);
+      res.status(200).json({
+        message: "this will save a comments of an article",
+        data: comment,
+      });
     } catch (error) {
-      throw error;
+      res.status(404).json({
+        message: error.message || "couldn't create a comment",
+        data: "",
+      });
     }
   }
 }
