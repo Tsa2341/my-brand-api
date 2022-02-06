@@ -55,6 +55,7 @@ export default class ArticleControllers {
     try {
       console.log(req.params);
       const result = await this.services.getArticle(req.params.id);
+      console.log(result);
       res
         .status(200)
         .json({ message: "this will return one article", data: result });
