@@ -82,6 +82,7 @@ export default class ArticleControllers {
         data: result,
       });
     } catch (error) {
+      console.log(error);
       res.status(404).json({
         message: error.message || "couldn't update the article",
         data: "",

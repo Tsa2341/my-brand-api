@@ -32,13 +32,12 @@ export default class ArticleServices {
   async updateArticle(id, data, image, res) {
     try {
       const article = await ArticleModel.findOne({ _id: id });
-
+      console.log(article);
       article.title = data.title || article.title;
       article.description = data.description || article.description;
       article.image = image && image !== "no image" ? image : article.image;
 
       await article.save();
-      console.log(article);
       return article;
     } catch (error) {
       throw error;
