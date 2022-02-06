@@ -117,7 +117,7 @@ describe("ARTICLE END-POINT TESTING", () => {
     let token = null;
     let article = null;
 
-    before(async () => {
+    beforeEach(async () => {
       try {
         //save an article
         await ArticleModel.deleteMany({});
