@@ -31,10 +31,7 @@ export default class ArticleServices {
   }
   async updateArticle(id, data, image, res) {
     try {
-      console.log(id, data);
-      console.log(await ArticleModel.find());
       const article = await ArticleModel.findOne({ _id: id });
-      console.log(article);
       article.title = data.title || article.title;
       article.description = data.description || article.description;
       article.image = image && image !== "no image" ? image : article.image;
@@ -42,8 +39,7 @@ export default class ArticleServices {
       await article.save();
       return article;
     } catch (error) {
-      throw error;
-      // throw { message: `Article ${id} can't be found` };
+      throw { message: `Article ${id} can't be found` };
     }
   }
   async deleteArticle(id) {

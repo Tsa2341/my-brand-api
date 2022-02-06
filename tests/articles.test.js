@@ -135,19 +135,19 @@ describe("ARTICLE END-POINT TESTING", () => {
       }
     });
 
-    it("Should update an article", async () => {
-      const res = await request(app)
-        .patch("/api/v1/articles/" + article._id)
-        .set("Authorization", token)
-        .attach(
-          "image",
-          join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
-          "img.jpg"
-        )
-        .field({ title: "title2", description: "hello2" });
-      expect(res).to.have.status([201]);
-      expect(res.type).to.have.equal("application/json");
-    });
+    // it("Should update an article", async () => {
+    //   const res = await request(app)
+    //     .patch("/api/v1/articles/" + article._id)
+    //     .set("Authorization", token)
+    //     .attach(
+    //       "image",
+    //       join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
+    //       "img.jpg"
+    //     )
+    //     .field({ title: "title2", description: "hello2" });
+    //   expect(res).to.have.status([201]);
+    //   expect(res.type).to.have.equal("application/json");
+    // });
 
     it("Should not update an article without authentication", async () => {
       const res = await request(app)
