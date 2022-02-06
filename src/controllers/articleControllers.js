@@ -55,12 +55,15 @@ export default class ArticleControllers {
     try {
       console.log(req.params);
       const result = await this.services.getArticle(req.params.id);
-      console.log(result);
+      if (!result) {
+        console.log("id=", id, "article=", article);
+        throw { message: `Article ${id} can't be found` };
+      }
       res
         .status(200)
         .json({ message: "this will return one article", data: result });
     } catch (error) {
-      // console.log(error)
+      console.log(error)
       res.status(404).json({
         message: error.message || "couldn't create the article",
         data: "",
