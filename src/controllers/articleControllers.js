@@ -53,7 +53,8 @@ export default class ArticleControllers {
   }
   async getArticle(req, res, next) {
     try {
-      const result = await this.services.getArticle(req.params.id, res);
+      console.log(req.params);
+      const result = await this.services.getArticle(req.params.id);
       res
         .status(200)
         .json({ message: "this will return one article", data: result });

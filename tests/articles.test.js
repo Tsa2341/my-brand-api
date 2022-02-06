@@ -33,9 +33,7 @@ describe("ARTICLE END-POINT TESTING", () => {
       });
       await article.save();
 
-      console.log(article);
       const res = await request(app).get("/api/v1/articles/" + article._id);
-      console.log(res);
       expect(res).to.have.status([200]);
       expect(res.type).to.have.equal("application/json");
     });
