@@ -19,6 +19,8 @@ describe("QUERY END-POINT TESTING", () => {
       //save an article
       await QueryModel.deleteMany({});
       query = new QueryModel({
+        fullname: "names",
+        email: "email@gmail.com",
         description: "hello",
         location: "kigali",
       });
@@ -58,9 +60,12 @@ describe("QUERY END-POINT TESTING", () => {
     it("Should create a querry", async () => {
       await QueryModel.deleteMany({});
 
-      const res = await request(app)
-        .post("/api/v1/querries/")
-        .send({ description: "hello", location: "kigali" });
+      const res = await request(app).post("/api/v1/querries/").send({
+        fullname: "names",
+        email: "email@gmail.com",
+        description: "hello",
+        location: "kigali",
+      });
       expect(res).to.have.status([201]);
       expect(res.type).to.have.equal("application/json");
     });
@@ -84,6 +89,8 @@ describe("QUERY END-POINT TESTING", () => {
         //save an article
         await QueryModel.deleteMany({});
         query = new QueryModel({
+          fullname: "names",
+          email: "email@gmail.com",
           description: "hello",
           location: "kigali",
         });

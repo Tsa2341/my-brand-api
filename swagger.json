@@ -267,6 +267,12 @@
             "required": true
           },
           {
+            "name": "fullname",
+            "in": "formData",
+            "description": "fullname",
+            "required": true
+          },
+          {
             "name": "description",
             "in": "formData",
             "description": "description",
@@ -355,6 +361,18 @@
         "description": "Create querry",
         "operationId": "createQuerry",
         "parameters": [
+          {
+            "name": "fullname",
+            "in": "formData",
+            "description": "full names",
+            "required": true
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "email",
+            "required": true
+          },
           {
             "name": "description",
             "in": "formData",

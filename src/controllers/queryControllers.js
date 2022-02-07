@@ -19,8 +19,7 @@ export default class QueryControllers {
       });
 
       const result = await this.services.createQuery({
-        description: req.body.description,
-        location: req.body.location,
+        ...req.body,
         date: date,
       });
       res
