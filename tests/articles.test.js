@@ -26,7 +26,7 @@ describe("ARTICLE END-POINT TESTING", () => {
 
     it("Should retrieve one article", async () => {
       await ArticleModel.deleteMany({});
-      const article = new ArticleModel({
+      let article = new ArticleModel({
         title: "title",
         description: "hello",
         image: "none url",
