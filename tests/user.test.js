@@ -95,7 +95,7 @@ describe("USER END-POINT TESTING", () => {
       await user.save();
     });
 
-    it.only("Should login a user", async () => {
+    it("Should login a user", async () => {
       const res = await request(app).post("/api/v1/user/login").send({
         username: "user",
         email: "alanshema2002@gmail.com",
@@ -106,13 +106,10 @@ describe("USER END-POINT TESTING", () => {
     });
 
     it("Should not login a user if no email", async () => {
-      const res = await request(app)
-        .post("/api/v1/user/login")
-        .type("form")
-        .send({
-          username: "user",
-          password: "112@qwerty",
-        });
+      const res = await request(app).post("/api/v1/user/login").send({
+        username: "user",
+        password: "112@qwerty",
+      });
       expect(res).to.have.status([406]);
     });
 
