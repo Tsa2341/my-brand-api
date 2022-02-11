@@ -15,6 +15,13 @@
       "name": "PRODUCTION"
     }
   ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
   "paths": {
     "/api/v1/": {
       "get": {
@@ -141,7 +148,12 @@
           "201": {
             "description": "Created"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/api/v1/articles/{id}": {
@@ -206,7 +218,12 @@
           "200": {
             "description": "Success"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "delete": {
         "tags": ["Articles"],
@@ -232,7 +249,12 @@
             "description": "Success"
           }
         }
-      }
+      },
+      "security": [
+        {
+          "Bearer": []
+        }
+      ]
     },
     "/api/v1/articles/{id}/comments": {
       "get": {
@@ -353,7 +375,12 @@
           "200": {
             "description": "Success"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       },
       "post": {
         "tags": ["Querries"],
@@ -409,7 +436,12 @@
           "200": {
             "description": "Success"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/api/v1/querries/{id}": {
@@ -436,7 +468,12 @@
           "200": {
             "description": "Success"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     }
   },

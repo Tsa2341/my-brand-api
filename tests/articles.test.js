@@ -107,8 +107,9 @@ describe.only("ARTICLE END-POINT TESTING", () => {
         )
         .field({ title: "", description: "hello" })
         .end((err, res) => {
+          console.log("in article test error = ", err);
           if (err) done(err);
-          console.log(res.body);
+          console.log("in article test body = ", res.body);
           console.log(res.status);
           expect(res).to.have.status([406]);
           done();
