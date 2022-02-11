@@ -17,7 +17,7 @@ describe("USER END-POINT TESTING", () => {
     });
 
     it("Should register a user", async () => {
-      const res = await request(app)
+      let res = await request(app)
         .post("/api/v1/user/register/")
         .attach(
           "image",
@@ -34,7 +34,7 @@ describe("USER END-POINT TESTING", () => {
     });
 
     it("Should not register a user if no email", async () => {
-      const res = await request(app)
+      let res = await request(app)
         .post("/api/v1/user/register/")
         .type("form")
         .send({
@@ -45,7 +45,7 @@ describe("USER END-POINT TESTING", () => {
     });
 
     it("Should register a user if no image", async () => {
-      const res = await request(app)
+      let res = await request(app)
         .post("/api/v1/user/register/")
         .type("form")
         .send({
@@ -59,7 +59,7 @@ describe("USER END-POINT TESTING", () => {
     });
 
     it("Should not register a user if no email already exists", async () => {
-      const user = User({
+      let user = User({
         username: "user",
         email: "alanshema2002@gmail.com",
         password: "112@qwerty",
@@ -67,7 +67,7 @@ describe("USER END-POINT TESTING", () => {
 
       await user.save();
 
-      const res = await request(app)
+      let res = await request(app)
         .post("/api/v1/user/register/")
         .type("form")
         .send({
@@ -83,7 +83,7 @@ describe("USER END-POINT TESTING", () => {
     before(async () => {
       // clear all user un a database
       await User.deleteMany({});
-      const user = User({
+      let user = User({
         username: "user",
         email: "alanshema2002@gmail.com",
         password: hashPassword("112@qwerty"),
@@ -93,7 +93,8 @@ describe("USER END-POINT TESTING", () => {
     });
 
     it("Should login a user", async () => {
-      const res = await request(app).post("/api/v1/user/login/").send({
+      console.log(await User.find({}));
+      let res = await request(app).post("/api/v1/user/login/").send({
         username: "user",
         email: "alanshema2002@gmail.com",
         password: "112@qwerty",
@@ -103,7 +104,7 @@ describe("USER END-POINT TESTING", () => {
     });
 
     it("Should not login a user if no email", async () => {
-      const res = await request(app).post("/api/v1/user/login/").send({
+      let res = await request(app).post("/api/v1/user/login/").send({
         username: "user",
         password: "112@qwerty",
       });
@@ -111,7 +112,7 @@ describe("USER END-POINT TESTING", () => {
     });
 
     it("Should not login a user if incorrect email", async () => {
-      const res = await request(app)
+      let res = await request(app)
         .post("/api/v1/user/login/")
         .type("form")
         .send({
@@ -123,7 +124,7 @@ describe("USER END-POINT TESTING", () => {
     });
 
     it("Should not login a user if password is incorrect", async () => {
-      const res = await request(app)
+      let res = await request(app)
         .post("/api/v1/user/login/")
         .type("form")
         .send({

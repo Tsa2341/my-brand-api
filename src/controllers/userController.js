@@ -46,10 +46,12 @@ export class UserControllers {
     try {
       const exist = await userExist(req.body.email);
 
+      console.log(exist);
       if (exist && exist.username === req.body.username) {
         const valid = await comparePassword(req.body.password, exist.password);
+        console.log(valid);
         if (!valid) {
-          res.status(403).json({  message: "Invalid credentials" });
+          res.status(403).json({ message: "Invalid credentials" });
         }
         const token = await generateToken({ id: exist._id });
         res
@@ -57,7 +59,7 @@ export class UserControllers {
           .status(200)
           .json({ message: "Logged in successfully", accessToken: token });
       } else {
-        res.status(403).json({  message: "Invalid credentials" });
+        res.status(403).json({ message: "Invalid credentials" });
       }
     } catch (error) {
       res
