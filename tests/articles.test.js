@@ -33,8 +33,6 @@ describe.only("ARTICLE END-POINT TESTING", () => {
       });
       await article.save();
 
-      console.log(article._id);
-
       let res = await request(app).get("/api/v1/articles/" + article._id);
       expect(res).to.have.status([200]);
       expect(res.type).to.have.equal("application/json");
@@ -63,7 +61,7 @@ describe.only("ARTICLE END-POINT TESTING", () => {
         await article.save();
 
         //get a token
-        token = `Bearer ${await generateToken(article._id)}`;
+        token = `Bearer ${generateToken(article._id)}`;
       } catch (error) {
         console.log(error);
       }
