@@ -14,14 +14,11 @@ describe("USER END-POINT TESTING", () => {
     beforeEach(async () => {
       // clear all user un a database
       await User.deleteMany({});
-      console.log(await User.find({}));
     });
-
-    console.log(__dirname);
 
     it("Should register a user", async () => {
       const res = await request(app)
-        .post("/api/v1/user/register")
+        .post("/api/v1/user/register/")
         .attach(
           "image",
           join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
@@ -38,7 +35,7 @@ describe("USER END-POINT TESTING", () => {
 
     it("Should not register a user if no email", async () => {
       const res = await request(app)
-        .post("/api/v1/user/register")
+        .post("/api/v1/user/register/")
         .type("form")
         .send({
           username: "user",
@@ -49,7 +46,7 @@ describe("USER END-POINT TESTING", () => {
 
     it("Should register a user if no image", async () => {
       const res = await request(app)
-        .post("/api/v1/user/register")
+        .post("/api/v1/user/register/")
         .type("form")
         .send({
           username: "user",
@@ -71,7 +68,7 @@ describe("USER END-POINT TESTING", () => {
       await user.save();
 
       const res = await request(app)
-        .post("/api/v1/user/register")
+        .post("/api/v1/user/register/")
         .type("form")
         .send({
           username: "user",
@@ -96,7 +93,7 @@ describe("USER END-POINT TESTING", () => {
     });
 
     it("Should login a user", async () => {
-      const res = await request(app).post("/api/v1/user/login").send({
+      const res = await request(app).post("/api/v1/user/login/").send({
         username: "user",
         email: "alanshema2002@gmail.com",
         password: "112@qwerty",
@@ -106,7 +103,7 @@ describe("USER END-POINT TESTING", () => {
     });
 
     it("Should not login a user if no email", async () => {
-      const res = await request(app).post("/api/v1/user/login").send({
+      const res = await request(app).post("/api/v1/user/login/").send({
         username: "user",
         password: "112@qwerty",
       });
@@ -115,7 +112,7 @@ describe("USER END-POINT TESTING", () => {
 
     it("Should not login a user if incorrect email", async () => {
       const res = await request(app)
-        .post("/api/v1/user/login")
+        .post("/api/v1/user/login/")
         .type("form")
         .send({
           username: "user",
@@ -127,7 +124,7 @@ describe("USER END-POINT TESTING", () => {
 
     it("Should not login a user if password is incorrect", async () => {
       const res = await request(app)
-        .post("/api/v1/user/login")
+        .post("/api/v1/user/login/")
         .type("form")
         .send({
           username: "user",

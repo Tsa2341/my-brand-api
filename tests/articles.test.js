@@ -30,8 +30,6 @@ describe("ARTICLE END-POINT TESTING", () => {
         image: "none url",
       });
       await article.save();
-      console.log(article);
-      console.log(await ArticleModel.find({ _id: article._id }));
 
       let res = await request(app).get("/api/v1/articles/" + article._id + "/");
       expect(res).to.have.status([200]);
@@ -95,7 +93,7 @@ describe("ARTICLE END-POINT TESTING", () => {
 
     it("Should not create an article without title", (done) => {
       request(app)
-        .post("/api/v1/articles")
+        .post("/api/v1/articles/")
         .set("Authorization", token)
         .attach(
           "image",
@@ -125,7 +123,6 @@ describe("ARTICLE END-POINT TESTING", () => {
           image: join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
         });
         await article.save();
-        console.log(await ArticleModel.find({ _id: article._id }));
 
         //get a token
         token = `Bearer ${generateToken(article._id)}`;
@@ -135,7 +132,6 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should update an article", async () => {
-      console.log(article._id);
       let res = await request(app)
         .patch("/api/v1/articles/" + article._id + "/")
         .set("Authorization", token)
