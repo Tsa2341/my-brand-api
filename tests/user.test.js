@@ -2,7 +2,7 @@ import { expect, request, use } from "chai";
 import chaiHttp from "chai-http";
 import app from "../src/app";
 import "dotenv/config";
-import { before, beforeEach } from "mocha";
+// import { before, beforeEach } from "mocha";
 import User from "../src/models/user";
 import { hashPassword } from "../src/helpers/passwordSecurity";
 import { join } from "path";
@@ -99,6 +99,7 @@ describe("USER END-POINT TESTING", () => {
         email: "alanshema2002@gmail.com",
         password: "112@qwerty",
       });
+      console.log(res.body)
       expect(res).to.have.status([200]);
       expect(res.type).to.have.equal("application/json");
     });

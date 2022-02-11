@@ -46,10 +46,8 @@ export class UserControllers {
     try {
       const exist = await userExist(req.body.email);
 
-      console.log(exist);
       if (exist && exist.username === req.body.username) {
         const valid = await comparePassword(req.body.password, exist.password);
-        console.log(valid);
         if (!valid) {
           res.status(403).json({ message: "Invalid credentials" });
         }
