@@ -33,14 +33,7 @@ describe.only("ARTICLE END-POINT TESTING", () => {
       });
       await article.save();
 
-      console.log(article);
-      console.log(await ArticleModel.find({ _id: article._id }));
-
       let res = await request(app).get("/api/v1/articles/" + article._id);
-
-      console.log(res.body);
-      console.log(res.status);
-
       expect(res).to.have.status([200]);
       expect(res.type).to.have.equal("application/json");
     });
@@ -102,8 +95,9 @@ describe.only("ARTICLE END-POINT TESTING", () => {
       expect(res).to.have.status([401]);
     });
 
-    it("Should not create an article without title", async () => {
-      let res = await request(app)
+    it("Should not create an article without title", (done) => {
+      console.log(token);
+      request(app)
         .post("/api/v1/articles/")
         .set("Authorization", token)
         .attach(
@@ -111,8 +105,14 @@ describe.only("ARTICLE END-POINT TESTING", () => {
           join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
-        .field({ description: "hello" });
-      expect(res).to.have.status([406]);
+        .field({ description: "hello" })
+        .end((err, res) => {
+          if (err) done(err);
+          console.log(res.body);
+          console.log(res.status);
+          expect(res).to.have.status([406]);
+          done();
+        });
     });
   });
 
