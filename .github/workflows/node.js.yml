@@ -57,6 +57,7 @@ jobs:
 
   build2:
 
+    needs: build1
     runs-on: ubuntu-latest
 
     strategy:
@@ -77,6 +78,7 @@ jobs:
 
   build3:
 
+    needs: build2
     runs-on: ubuntu-latest
 
     strategy:
