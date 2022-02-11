@@ -119,12 +119,6 @@
         "operationId": "postArticles",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Token",
-            "required": true
-          },
-          {
             "name": "title",
             "in": "formData",
             "description": "title",
@@ -141,7 +135,7 @@
             "in": "formData",
             "type": "file",
             "description": "image",
-            "required": false
+            "required": true
           }
         ],
         "responses": {
@@ -189,12 +183,6 @@
             "required": true
           },
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Token",
-            "required": true
-          },
-          {
             "name": "title",
             "in": "formData",
             "description": "title",
@@ -235,12 +223,6 @@
             "name": "id",
             "in": "path",
             "description": "id",
-            "required": true
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Token",
             "required": true
           }
         ],
@@ -363,14 +345,6 @@
         "summary": "Get all querries",
         "description": "Get all querries",
         "operationId": "getQuerries",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Token",
-            "required": true
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -424,14 +398,6 @@
         "summary": "Delete all querries",
         "description": "Delete all querries",
         "operationId": "deleteQuerries",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Token",
-            "required": true
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -455,12 +421,6 @@
             "name": "id",
             "in": "path",
             "description": "id",
-            "required": true
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Token",
             "required": true
           }
         ],
