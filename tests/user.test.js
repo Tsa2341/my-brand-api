@@ -14,7 +14,7 @@ describe("USER END-POINT TESTING", () => {
     beforeEach(async () => {
       // clear all user un a database
       await User.deleteMany({});
-      console.log(User.find({}));
+      console.log(await User.find({}));
     });
 
     console.log(__dirname);

@@ -30,9 +30,10 @@ describe("ARTICLE END-POINT TESTING", () => {
         image: "none url",
       });
       await article.save();
+      console.log(article);
       console.log(await ArticleModel.find({ _id: article._id }));
 
-      let res = await request(app).get("/api/v1/articles/" + article._id);
+      let res = await request(app).get("/api/v1/articles/" + article._id + "/");
       expect(res).to.have.status([200]);
       expect(res.type).to.have.equal("application/json");
     });
@@ -67,10 +68,8 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should create an article", async () => {
-      await ArticleModel.deleteMany({});
-
       let res = await request(app)
-        .post("/api/v1/articles/")
+        .post("/api/v1/articles")
         .set("Authorization", token)
         .attach(
           "image",
@@ -95,9 +94,8 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should not create an article without title", (done) => {
-      console.log(token);
       request(app)
-        .post("/api/v1/articles/")
+        .post("/api/v1/articles")
         .set("Authorization", token)
         .attach(
           "image",
@@ -137,9 +135,9 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should update an article", async () => {
-      console.log(article._id)
+      console.log(article._id);
       let res = await request(app)
-        .patch("/api/v1/articles/" + article._id)
+        .patch("/api/v1/articles/" + article._id + "/")
         .set("Authorization", token)
         .attach(
           "image",
