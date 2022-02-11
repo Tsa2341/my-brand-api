@@ -230,13 +230,13 @@
           "200": {
             "description": "Success"
           }
-        }
-      },
-      "security": [
-        {
-          "Bearer": []
-        }
-      ]
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
     },
     "/api/v1/articles/{id}/comments": {
       "get": {
