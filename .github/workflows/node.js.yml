@@ -14,7 +14,7 @@ env:
   CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
   API_KEY: ${{ secrets.API_KEY }}
   API_SECRET: ${{ secrets.API_SECRET }}
-# jobs:
+jobs:
 #   build1:
 
 #     runs-on: ubuntu-latest
