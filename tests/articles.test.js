@@ -26,12 +26,14 @@ describe.only("ARTICLE END-POINT TESTING", () => {
 
     it("Should retrieve one article", async () => {
       await ArticleModel.deleteMany({});
-      let article = new ArticleModel({
+      let article = await new ArticleModel({
         title: "title",
         description: "hello",
         image: "none url",
       });
       await article.save();
+
+      console.log(article._id);
 
       let res = await request(app).get("/api/v1/articles/" + article._id);
       expect(res).to.have.status([200]);
@@ -105,7 +107,7 @@ describe.only("ARTICLE END-POINT TESTING", () => {
           join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
-        .field({ description: "hello" })
+        .field({ title: "title", description: "hello" })
         .end((err, res) => {
           if (err) done(err);
           console.log(res.body);
