@@ -107,7 +107,7 @@ describe.only("ARTICLE END-POINT TESTING", () => {
           join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
           "img.jpg"
         )
-        .field({ title: "title", description: "hello" })
+        .field({ title: "", description: "hello" })
         .end((err, res) => {
           if (err) done(err);
           console.log(res.body);
