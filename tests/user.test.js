@@ -93,13 +93,11 @@ describe("USER END-POINT TESTING", () => {
     });
 
     it("Should login a user", async () => {
-      console.log(await User.find({}));
       let res = await request(app).post("/api/v1/user/login/").send({
         username: "user",
         email: "alanshema2002@gmail.com",
         password: "112@qwerty",
       });
-      console.log(res.body)
       expect(res).to.have.status([200]);
       expect(res.type).to.have.equal("application/json");
     });
