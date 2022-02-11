@@ -4,9 +4,7 @@ import app from "../src/app";
 import "dotenv/config";
 import { before, beforeEach } from "mocha";
 import ArticleModel from "../src/models/articleModel";
-import User from "../src/models/user";
 import { generateToken } from "../src/helpers/jwtFunctions.js";
-import fs from "fs";
 import { join } from "path";
 
 use(chaiHttp);
@@ -32,6 +30,7 @@ describe("ARTICLE END-POINT TESTING", () => {
         image: "none url",
       });
       await article.save();
+      console.log(await ArticleModel.find({ _id: article._id }));
 
       let res = await request(app).get("/api/v1/articles/" + article._id);
       expect(res).to.have.status([200]);
@@ -107,10 +106,7 @@ describe("ARTICLE END-POINT TESTING", () => {
         )
         .field({ title: "", description: "hello" })
         .end((err, res) => {
-          console.log("in article test error = ", err);
           if (err) done(err);
-          console.log("in article test body = ", res.body);
-          console.log(res.status);
           expect(res).to.have.status([406]);
           done();
         });
@@ -131,6 +127,7 @@ describe("ARTICLE END-POINT TESTING", () => {
           image: join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
         });
         await article.save();
+        console.log(await ArticleModel.find({ _id: article._id }));
 
         //get a token
         token = `Bearer ${generateToken(article._id)}`;
@@ -140,6 +137,7 @@ describe("ARTICLE END-POINT TESTING", () => {
     });
 
     it("Should update an article", async () => {
+      console.log(article._id)
       let res = await request(app)
         .patch("/api/v1/articles/" + article._id)
         .set("Authorization", token)

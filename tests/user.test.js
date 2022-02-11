@@ -14,6 +14,7 @@ describe("USER END-POINT TESTING", () => {
     beforeEach(async () => {
       // clear all user un a database
       await User.deleteMany({});
+      console.log(User.find({}));
     });
 
     console.log(__dirname);
@@ -57,7 +58,7 @@ describe("USER END-POINT TESTING", () => {
         });
       expect(res).to.have.status([201]);
       expect(res.type).to.have.equal("application/json");
-      expect(await JSON.parse(res.text).user).to.have.property("image");
+      expect(res.body.user).to.have.property("image");
     });
 
     it("Should not register a user if no email already exists", async () => {
@@ -88,21 +89,18 @@ describe("USER END-POINT TESTING", () => {
       const user = User({
         username: "user",
         email: "alanshema2002@gmail.com",
-        password: await hashPassword("112@qwerty"),
+        password: hashPassword("112@qwerty"),
       });
 
       await user.save();
     });
 
-    it("Should login a user", async () => {
-      const res = await request(app)
-        .post("/api/v1/user/login")
-        .type("form")
-        .send({
-          username: "user",
-          email: "alanshema2002@gmail.com",
-          password: "112@qwerty",
-        });
+    it.only("Should login a user", async () => {
+      const res = await request(app).post("/api/v1/user/login").send({
+        username: "user",
+        email: "alanshema2002@gmail.com",
+        password: "112@qwerty",
+      });
       expect(res).to.have.status([200]);
       expect(res.type).to.have.equal("application/json");
     });
