@@ -11,7 +11,7 @@ import { join } from "path";
 
 use(chaiHttp);
 
-describe.only("ARTICLE END-POINT TESTING", () => {
+describe("ARTICLE END-POINT TESTING", () => {
   describe("GET ARTICLE END-POINT TESTING", () => {
     it("Should retrieve all articles", async () => {
       let res = await request(app).get("/api/v1/articles/");
@@ -53,7 +53,7 @@ describe.only("ARTICLE END-POINT TESTING", () => {
       try {
         //save an article
         await ArticleModel.deleteMany({});
-        let article = new ArticleModel({
+        let article = await new ArticleModel({
           title: "title",
           description: "hello",
           image: join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
@@ -139,19 +139,19 @@ describe.only("ARTICLE END-POINT TESTING", () => {
       }
     });
 
-    // it("Should update an article", async () => {
-    //   let res = await request(app)
-    //     .patch("/api/v1/articles/" + article._id)
-    //     .set("Authorization", token)
-    //     .attach(
-    //       "image",
-    //       join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
-    //       "img.jpg"
-    //     )
-    //     .field({ title: "title2", description: "hello2" });
-    //   expect(res).to.have.status([201]);
-    //   expect(res.type).to.have.equal("application/json");
-    // });
+    it("Should update an article", async () => {
+      let res = await request(app)
+        .patch("/api/v1/articles/" + article._id)
+        .set("Authorization", token)
+        .attach(
+          "image",
+          join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
+          "img.jpg"
+        )
+        .field({ title: "title2", description: "hello2" });
+      expect(res).to.have.status([201]);
+      expect(res.type).to.have.equal("application/json");
+    });
 
     it("Should not update an article without authentication", async () => {
       let res = await request(app)
@@ -174,7 +174,7 @@ describe.only("ARTICLE END-POINT TESTING", () => {
       try {
         //save an article
         await ArticleModel.deleteMany({});
-        article = new ArticleModel({
+        article = await new ArticleModel({
           title: "title",
           description: "hello",
           image: join(__dirname, "/images/FB_IMG_15760502641137579.jpg"),
