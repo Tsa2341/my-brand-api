@@ -15,16 +15,16 @@ export class UserControllers {
           });
       } else {
         if (req.file) {
-          req.body.picture = await uploadFile(req);
+          req.body.image = await uploadFile(req);
         } else {
-          req.body.picture =
+          req.body.image =
             "https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png";
         }
         const user = {
           username: req.body.username,
           email: req.body.email,
           password: await hashPassword(req.body.password),
-          picture: req.body.picture,
+          image: req.body.image,
         };
         const createdUser = await createUser(user);
         res
@@ -49,7 +49,7 @@ export class UserControllers {
       if (exist && exist.username === req.body.username) {
         const valid = await comparePassword(req.body.password, exist.password);
         if (!valid) {
-          res.status(403).json({  message: "Invalid credentials" });
+          res.status(403).json({ message: "Invalid credentials" });
         }
         const token = await generateToken({ id: exist._id });
         res
@@ -57,7 +57,7 @@ export class UserControllers {
           .status(200)
           .json({ message: "Logged in successfully", accessToken: token });
       } else {
-        res.status(403).json({  message: "Invalid credentials" });
+        res.status(403).json({ message: "Invalid credentials" });
       }
     } catch (error) {
       res

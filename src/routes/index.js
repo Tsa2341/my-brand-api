@@ -17,13 +17,10 @@ cloudinary.v2.config({
 });
 
 const storage = new CloudinaryStorage({
-    cloudinary: cloudinary.v2,
-    params: {
-        folder: 'my-brand-images',
-        public_id: (req, file) => {
-            return new Date().toISOString().replaceAll(':', '-') + '-' + file.originalname;
-        },
-    },
+  cloudinary: cloudinary.v2,
+  params: {
+    folder: "my-brand-images",
+  },
 });
 
 const fileFilter = (req, file, cb) => {

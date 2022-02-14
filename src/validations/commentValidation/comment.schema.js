@@ -1,6 +1,6 @@
 import joi from 'joi'
 
 export const commentSchema = joi.object({
-    name: joi.string().required().empty(),
-    comment: joi.string().max(200).required().empty(),
-})
+  fullname: joi.string().required().empty(),
+  description: joi.string().max(200).required().empty(),
+});

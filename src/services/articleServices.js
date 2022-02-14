@@ -1,95 +1,103 @@
-import ArticleModel from '../models/articleModel.js'
-import {createArticleError, idArticleError} from '../helpers/errorFormatter.js';
+import ArticleModel from "../models/articleModel.js";
+import CommentModel from "../models/commentModel.js";
 
 // import the model you need to access
 export default class ArticleServices {
+  async createArticle(data) {
+    try {
+      const article = new ArticleModel(data);
+      await article.save();
+      return article;
+    } catch (error) {
+      throw error;
+    }
+  }
 
-    async createArticle(data) {
-        try {
-            const article = new ArticleModel(data);
-            await article.save();
-            return article;
-        } catch (error) {
-            throw await createArticleError(newError)
-        }
+  async getAllArticles() {
+    try {
+      const articles = await ArticleModel.find();
+      return articles;
+    } catch (error) {
+      throw error;
     }
+  }
+  async getArticle(id) {
+    try {
+      const article = await ArticleModel.findOne({ _id: id });
+      return article;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async updateArticle(id, data, image, res) {
+    try {
+      const article = await ArticleModel.findOne({ _id: id });
+      article.title = data.title || article.title;
+      article.description = data.description || article.description;
+      article.image = image && image !== "no image" ? image : article.image;
 
-    async getAllArticles() {
-        try {
-            const articles = await ArticleModel.find();
-            return articles;
-        } catch (error) {
-            throw error;
-        }
+      await article.save();
+      return article;
+    } catch (error) {
+      throw { message: `Article ${id} can't be found` };
     }
-    async getArticle(id) {
-        try {
-            const article = await ArticleModel.findOne({ _id: id });
-            if (article === null) {
-                throw { message: `Article ${id} can't be found`};
-            }
-            return article;
-        } catch (error) {
-            throw error
-        }
+  }
+  async deleteArticle(id) {
+    try {
+      const result = await ArticleModel.deleteOne({ _id: id });
+      return result;
+    } catch (error) {
+      throw error;
     }
-    async updateArticle(id, data, image, res) { 
-        try {
-            const article = await ArticleModel.findOne({ _id: id });
+  }
 
-            if(article === null) throw { message: `Article ${id} can't be found`};
-    
-            article.title = data.title || article.title;
-            article.description = data.description || article.description;
-            article.image = (image && image !== "no image") ? image : article.image;
-    
-            await article.save();
-            return article;
-        } catch (error) {
-            throw { message: `Article ${id} can't be found`};
-        }
+  // likes
+  async getLikes(id, res) {
+    try {
+      const result = await ArticleModel.findById({ _id: id });
+      if (!result) throw new Error("article not found");
+      return { likes: result.likes, dislikes: result.dislikes };
+    } catch (error) {
+      throw { message: `Article ${id} can't be found` };
     }
-    async deleteArticle(id) {
-        try {
-            const result = await ArticleModel.deleteOne({ _id: id })
-            return result;
-        } catch (error) {
-            throw error;
-        }
+  }
+  async updateLikes(id, data, res) {
+    try {
+      const result = await ArticleModel.findById({ _id: id });
+      if (!result) throw new Error("article not found");
+      if (data.likes) result.likes = data.likes;
+      if (data.dislikes) result.dislikes = data.dislikes;
+      await result.save();
+      return { likes: result.likes, dislikes: result.dislikes };
+    } catch (error) {
+      throw { message: `Article ${id} can't be found` };
     }
+  }
 
-    // likes
-    async getLikes(id) {
-        try {
-            const result = await ArticleModel.findById({ _id: id });
-            return {likes: result.likes, dislikes: result.dislikes};
-        } catch (error) {
-            throw error
-        }
-    }
-    async updateLikes(id, data) {
-        try {
-            const result = await ArticleModel.findById({ _id: id });
-            if(data.likes) result.likes = data.likes;
-            if(data.dislikes) result.dislikes = data.dislikes;
-            await result.save();
-            return {likes: result.likes, dislikes: result.dislikes};
-        } catch (error) {
-            throw error
-        }
-    }
+  // comments
 
-    // comments
-
-    async getcomments(req, res, next) {
-        try {} catch (error) {
-            throw error
-        }
+  async getComments(id, res) {
+    try {
+      const article = await ArticleModel.findOne({ _id: id });
+      if (!article) throw new Error("article not found");
+      return article.comments;
+    } catch (error) {
+      throw { message: `Article ${id} can't be found` };
     }
-    async createComments(req, res, next) {
-        try {} catch (error) {
-            throw error
-        }
+  }
+  async createComment(data, id, res) {
+    try {
+      const article = await ArticleModel.findOne({ _id: id });
+      if (!article) throw new Error("article not found");
+      await article.comments.push({
+        ...data,
+        date: new Date().toISOString(),
+      });
+      await article.save();
+      return article.comments.slice(-1);
+    } catch (error) {
+      throw { message: `Article ${id} can't be found` };
     }
+  }
 }
 

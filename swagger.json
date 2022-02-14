@@ -1,0 +1,470 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API",
+    "description": "API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "name": "DEV"
+    },
+    {
+      "url": "https://my-brand-apis.herokuapp.com/",
+      "name": "PRODUCTION"
+    }
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/api/v1/": {
+      "get": {
+        "tags": ["API"],
+        "summary": "API",
+        "description": "API home",
+        "operationId": "Home for all apis",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/user/login": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Login",
+        "description": "Login",
+        "operationId": "postUsersLogin",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Login",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/user/register": {
+      "post": {
+        "tags": ["Register"],
+        "summary": "Register",
+        "description": "Register",
+        "operationId": "registerUsersLogin",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "formData",
+            "description": "username",
+            "required": true
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "email",
+            "required": true
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "password",
+            "required": true
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "type": "file",
+            "description": "image",
+            "required": false
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/api/v1/articles": {
+      "get": {
+        "tags": ["Articles"],
+        "summary": "Get all articles",
+        "description": "Get all articles",
+        "operationId": "getArticles",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Articles"],
+        "summary": "Create article",
+        "description": "Create article",
+        "operationId": "postArticles",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "formData",
+            "description": "title",
+            "required": true
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "description",
+            "required": true
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "type": "file",
+            "description": "image",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/articles/{id}": {
+      "get": {
+        "tags": ["Articles"],
+        "summary": "Get one article",
+        "description": "Get one article",
+        "operationId": "getArticle",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Articles"],
+        "summary": "Update article",
+        "description": "Update article",
+        "operationId": "updateArticles",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true
+          },
+          {
+            "name": "title",
+            "in": "formData",
+            "description": "title",
+            "required": true
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "description",
+            "required": true
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "type": "file",
+            "description": "image",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Articles"],
+        "summary": "Delete article",
+        "description": "Delete article",
+        "operationId": "deleteArticle",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/articles/{id}/comments": {
+      "get": {
+        "tags": ["Articles"],
+        "summary": "Get all comments",
+        "description": "Get all comments",
+        "operationId": "getComments",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Articles"],
+        "summary": "Create a comment",
+        "description": "Create a comment",
+        "operationId": "createComment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true
+          },
+          {
+            "name": "fullname",
+            "in": "formData",
+            "description": "fullname",
+            "required": true
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "description",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/api/v1/articles/{id}/likes": {
+      "get": {
+        "tags": ["Articles"],
+        "summary": "Get likes",
+        "description": "Get likes",
+        "operationId": "getLikes",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Articles"],
+        "summary": "Update likes",
+        "description": "Update likes",
+        "operationId": "UpdateLikes",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "description": "description",
+            "schema": {
+              "$ref": "#/definitions/likes"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/api/v1/querries": {
+      "get": {
+        "tags": ["Querries"],
+        "summary": "Get all querries",
+        "description": "Get all querries",
+        "operationId": "getQuerries",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Querries"],
+        "summary": "Create querry",
+        "description": "Create querry",
+        "operationId": "createQuerry",
+        "parameters": [
+          {
+            "name": "fullname",
+            "in": "formData",
+            "description": "full names",
+            "required": true
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "email",
+            "required": true
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "description",
+            "required": true
+          },
+          {
+            "name": "location",
+            "in": "formData",
+            "description": "location",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Querries"],
+        "summary": "Delete all querries",
+        "description": "Delete all querries",
+        "operationId": "deleteQuerries",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/querries/{id}": {
+      "delete": {
+        "tags": ["Querries"],
+        "summary": "Delete one querry",
+        "description": "Delete one querry",
+        "operationId": "deleteQuerry",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "login": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "required": true
+        },
+        "email": {
+          "type": "string",
+          "required": true
+        },
+        "password": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "likes": {
+      "type": "object",
+      "properties": {
+        "likes": {
+          "type": "number"
+        },
+        "dislikes": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
